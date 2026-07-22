@@ -72,7 +72,7 @@ const fragmentShader = /* glsl */ `
     vec3 amber = vec3(0.86, 0.58, 0.34);
     vec3 rose = vec3(0.64, 0.34, 0.55);
     vec3 col = mix(rose, amber, smoothstep(0.25, 0.85, n));
-    col *= core * energy * 2.4;
+    col *= core * energy * 2.0; // atténué pour simuler la teinte fumée du verre
 
     float alpha = clamp(core * energy, 0.0, 1.0);
     gl_FragColor = vec4(col, alpha);
@@ -125,8 +125,11 @@ export default function PlasmaChamber() {
         <meshStandardMaterial color="#171412" roughness={0.6} metalness={0.5} />
       </RoundedBox>
 
-      {/* Volume plasma (intérieur, rendu additif) */}
-      <mesh position={[0, GLASS_H / 2 + 0.16, 0]} renderOrder={1}>
+      {/* Volume plasma (intérieur, rendu additif).
+          IMPORTANT : dessiné APRÈS le verre (renderOrder 3) avec depthTest off.
+          Le buffer de transmission de three.js ne contient que les opaques :
+          si le plasma est rendu avant le verre, il est invisible à travers. */}
+      <mesh position={[0, GLASS_H / 2 + 0.16, 0]} renderOrder={3}>
         <boxGeometry args={[1.02, GLASS_H - 0.16, 0.72]} />
         <shaderMaterial
           ref={materialRef}
@@ -135,6 +138,7 @@ export default function PlasmaChamber() {
           uniforms={uniforms}
           transparent
           depthWrite={false}
+          depthTest={false}
           blending={THREE.AdditiveBlending}
           side={THREE.BackSide}
         />
