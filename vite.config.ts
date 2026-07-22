@@ -10,6 +10,10 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  build: {
+    // Vercel du projet attend un dossier "build" (Output Directory)
+    outDir: 'build',
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

@@ -17,10 +17,17 @@ React 19 + TypeScript · Vite 7 · Tailwind CSS 3.4 · Three.js (`@react-three/f
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # build de production dans dist/
+npm run build    # build de production dans build/
 ```
 
 > Le `package-lock.json` n'est pas versionné : `npm install` le régénère.
+
+## Déploiement Vercel
+
+Le projet sort le build dans **`build/`** (voir `vite.config.ts`) et `vercel.json`
+fixe `outputDirectory: "build"`. Si un Output Directory a été saisi manuellement
+dans le dashboard Vercel (Settings → Build & Development Settings), il doit
+valoir `build` ou être laissé vide.
 
 ## Structure
 
