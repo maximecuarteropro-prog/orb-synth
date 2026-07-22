@@ -21,9 +21,6 @@ npm run build    # build de production dans dist/
 ```
 
 > Le `package-lock.json` n'est pas versionné : `npm install` le régénère.
-> Le template shadcn/ui est préconfiguré (`components.json`) — les composants
-> non utilisés par l'app ne sont pas inclus ; ajoutez-les au besoin avec
-> `npx shadcn@latest add <composant>`.
 
 ## Structure
 
@@ -38,3 +35,7 @@ src/
 │   └── PlasmaChamber.tsx     # Verre fumé + shader plasma audio-réactif
 └── pages/Home.tsx            # HUD (octave, volume, gamme, plasma, démo)
 ```
+
+## Licence
+
+MIT
